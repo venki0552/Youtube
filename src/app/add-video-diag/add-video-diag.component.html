@@ -1,0 +1,48 @@
+<h1 mat-dialog-title>Add Video</h1>
+<div mat-dialog-content>
+    <form class="videoForm" [formGroup]="videoForm">
+        <mat-form-field appearance="fill">
+            <mat-label>Enter provide URL</mat-label>
+            <input matInput placeholder="URL" formControlName="url" required>
+            <mat-error *ngIf="videoForm.invalid && videoForm.controls?.url?.errors?.required">Please provide URL</mat-error>
+            <mat-error *ngIf="videoForm.invalid && videoForm.controls?.url?.errors?.pattern">Please provide valid URL</mat-error>
+        </mat-form-field>
+        <div class="marginTop" appearance="fill">
+            <mat-checkbox formControlName="isPrivate" class="example-margin" required>Is this private video</mat-checkbox>
+        </div>
+        <mat-form-field class="marginTop" appearance="fill">
+            <mat-label>Enter provide URL</mat-label>
+            <input matInput placeholder="URL" formControlName="title" required>
+            <mat-error *ngIf="videoForm.invalid && videoForm.controls?.title?.errors?.required">Please provide Title</mat-error>
+        </mat-form-field>
+        <mat-form-field class="marginTop" appearance="fill">
+            <mat-label>Enter provide URL</mat-label>
+            <input matInput placeholder="URL" formControlName="description" required>
+            <mat-error *ngIf="videoForm.invalid && videoForm.controls?.description?.errors?.required">Please provide Description</mat-error>
+        </mat-form-field>
+        <mat-form-field class="marginTop" class="tag-chip-list">
+            <mat-label>Tags</mat-label>
+            <mat-chip-list #chipList aria-label="Tag selection">
+                <mat-chip *ngFor="let tag of tagList" [selectable]="true"
+                    (removed)="remove(tag)">{{tag}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Search Tags"
+                    [formControl]="tags"
+                    [matChipInputFor]="chipList"
+                    [matAutocomplete]="auto"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    (matChipInputTokenEnd)="add($event)">
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+                  {{tag}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions>    
+    <button mat-button (click)="close()">Cancel</button>
+    <button mat-raised-button (click)="addVideo()" [disabled]='videoForm.invalid' color="primary" cdkFocusInitial>Add</button>
+</div> 

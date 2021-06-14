@@ -1,0 +1,30 @@
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 15px;
+
+    .tabs {
+        flex-grow: 1;
+        padding-right: 10px;
+    }
+
+    .all-videos {
+        padding: 10px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+.video-card {
+    width: 250px;
+    margin-top: 10px;
+    margin-left: 10px;
+
+    .video-title {
+        font-size: 18px;
+        font-weight: 600;
+    }
+}
